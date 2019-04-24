@@ -4,6 +4,7 @@ set -u
 
 REDASH_BASE_PATH=/opt/redash
 COMPOSE_PATH=/usr/local/bin/docker-compose
+COMPOSE_VERSION="1.24.0"
 
 distro=unknown
 install_docker(){
@@ -28,7 +29,7 @@ install_docker(){
     fi
 
     # Install Docker Compose
-    sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o ${COMPOSE_PATH}
+    sudo curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) -o ${COMPOSE_PATH}
     sudo chmod +x ${COMPOSE_PATH}
     if [ "${distro}" = "centos7" ]; then
         sudo restorecon -Fv ${COMPOSE_PATH}

@@ -17,9 +17,9 @@ from .app import create_app  # noqa
 __version__ = '8.0.0-beta'
 
 
-if os.environ.get("REMOTE_DEBUG"):
-    import ptvsd
-    ptvsd.enable_attach(address=('0.0.0.0', 5678))
+#if os.environ.get("REMOTE_DEBUG"):
+#    import ptvsd
+#    ptvsd.enable_attach(address=('0.0.0.0', 5678))
 
 
 def setup_logging():

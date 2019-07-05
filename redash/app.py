@@ -1,4 +1,5 @@
 from flask import Flask
+import pydevd_pycharm
 from werkzeug.contrib.fixers import ProxyFix
 
 from . import settings
@@ -29,6 +30,7 @@ def create_app():
     from .query_runner import import_query_runners
     from .utils import sentry
     from .version_check import reset_new_version_status
+    pydevd_pycharm.settrace('10.1.1.68', port=5678, stdoutToServer=True, stderrToServer=True)
 
     sentry.init()
     app = Redash()

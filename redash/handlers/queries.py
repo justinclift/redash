@@ -1,4 +1,5 @@
 import sqlparse
+import pydevd_pycharm
 from flask import jsonify, request, url_for
 from flask_login import login_required
 from flask_restful import abort
@@ -51,6 +52,7 @@ def format_sql_query(org_slug=None):
     :<json string query: The SQL text to format
     :>json string query: Formatted SQL text
     """
+    pydevd_pycharm.settrace('10.1.1.68', port=5678, stdoutToServer=True, stderrToServer=True)
     arguments = request.get_json(force=True)
     query = arguments.get("query", "")
 
@@ -68,6 +70,7 @@ class QuerySearchResource(BaseResource):
 
         Responds with a list of :ref:`query <query-response-label>` objects.
         """
+        pydevd_pycharm.settrace('10.1.1.68', port=5678, stdoutToServer=True, stderrToServer=True)
         term = request.args.get('q', '')
         if not term:
             return []
@@ -98,7 +101,7 @@ class QueryRecentResource(BaseResource):
 
         Responds with a list of :ref:`query <query-response-label>` objects.
         """
-
+        pydevd_pycharm.settrace('10.1.1.68', port=5678, stdoutToServer=True, stderrToServer=True)
         results = models.Query.by_user(self.current_user).order_by(models.Query.updated_at.desc()).limit(10)
         return QuerySerializer(results, with_last_modified_by=False, with_user=False).serialize()
 
@@ -106,6 +109,7 @@ class QueryRecentResource(BaseResource):
 class BaseQueryListResource(BaseResource):
 
     def get_queries(self, search_term):
+        pydevd_pycharm.settrace('10.1.1.68', port=5678, stdoutToServer=True, stderrToServer=True)
         if search_term:
             results = models.Query.search(
                 search_term,
@@ -134,6 +138,7 @@ class BaseQueryListResource(BaseResource):
 
         Responds with an array of :ref:`query <query-response-label>` objects.
         """
+        pydevd_pycharm.settrace('10.1.1.68', port=5678, stdoutToServer=True, stderrToServer=True)
         # See if we want to do full-text search or just regular queries
         search_term = request.args.get('q', '')
 
@@ -221,6 +226,7 @@ class QueryListResource(BaseQueryListResource):
         :>json string retrieved_at: Time when query results were last retrieved, in ISO format (may be null)
         :>json number runtime: Runtime of last query execution, in seconds (may be null)
         """
+        pydevd_pycharm.settrace('10.1.1.68', port=5678, stdoutToServer=True, stderrToServer=True)
         query_def = request.get_json(force=True)
         data_source = models.DataSource.get_by_id_and_org(query_def.pop('data_source_id'), self.current_org)
         require_access(data_source, self.current_user, not_view_only)
@@ -250,6 +256,7 @@ class QueryListResource(BaseQueryListResource):
 class QueryArchiveResource(BaseQueryListResource):
 
     def get_queries(self, search_term):
+        pydevd_pycharm.settrace('10.1.1.68', port=5678, stdoutToServer=True, stderrToServer=True)
         if search_term:
             return models.Query.search(
                 search_term,
@@ -281,6 +288,7 @@ class MyQueriesResource(BaseResource):
 
         Responds with an array of :ref:`query <query-response-label>` objects.
         """
+        pydevd_pycharm.settrace('10.1.1.68', port=5678, stdoutToServer=True, stderrToServer=True)
         search_term = request.args.get('q', '')
         if search_term:
             results = models.Query.search_by_user(search_term, self.current_user)
@@ -322,6 +330,7 @@ class QueryResource(BaseResource):
 
         Responds with the updated :ref:`query <query-response-label>` object.
         """
+        pydevd_pycharm.settrace('10.1.1.68', port=5678, stdoutToServer=True, stderrToServer=True)
         query = get_object_or_404(models.Query.get_by_id_and_org, query_id, self.current_org)
         query_def = request.get_json(force=True)
 

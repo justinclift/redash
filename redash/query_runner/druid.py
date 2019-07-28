@@ -34,9 +34,21 @@ class Druid(BaseQueryRunner):
                 "scheme": {
                     "type": "string",
                     "default": "http"
+                },
+                "user": {
+                    "type": "string",
+                    "title": "username"
+                },
+                "password": {
+                    "type": "string",
+                    "default": "HyperInteractive"
+                },
+                "disablecertverify": {
+                    "type": "boolean",
+                    "default": False
                 }
             },
-            "order": ['scheme', 'host', 'port'],
+            "order": ['scheme', 'host', 'port', 'user', 'password', 'disablecertverify'],
             "required": ['host']
         }
 
@@ -48,7 +60,10 @@ class Druid(BaseQueryRunner):
         connection = connect(host=self.configuration['host'],
                              port=self.configuration['port'],
                              path='/druid/v2/sql/',
-                             scheme=self.configuration['scheme'])
+                             scheme=self.configuration['scheme'],
+                             user=self.configuration['user'],
+                             password=self.configuration['password'],
+                             disablecertverify=self.configuration['disablecertverify'])
 
         cursor = connection.cursor()
 

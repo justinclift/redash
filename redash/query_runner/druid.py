@@ -43,12 +43,13 @@ class Druid(BaseQueryRunner):
                     "type": "string",
                     "default": "HyperInteractive"
                 },
-                "disablecertverify": {
+                "disable_cert_verify": {
                     "type": "boolean",
-                    "default": False
+                    "default": False,
+                    "title": "Disable certificate validation for Self Signed Certificates"
                 }
             },
-            "order": ['scheme', 'host', 'port', 'user', 'password', 'disablecertverify'],
+            "order": ['scheme', 'host', 'port', 'user', 'password', 'disable_cert_verify'],
             "required": ['host']
         }
 
@@ -63,7 +64,7 @@ class Druid(BaseQueryRunner):
                              scheme=self.configuration['scheme'],
                              user=self.configuration['user'],
                              password=self.configuration['password'],
-                             disablecertverify=self.configuration['disablecertverify'])
+                             disable_cert_verify=self.configuration['disable_cert_verify'])
 
         cursor = connection.cursor()
 

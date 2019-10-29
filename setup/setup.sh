@@ -4,7 +4,7 @@ set -u
 
 REDASH_BASE_PATH=/opt/redash
 COMPOSE_PATH=/usr/local/bin/docker-compose
-COMPOSE_VERSION="1.24.0"
+COMPOSE_VERSION="1.24.1"
 
 distro=unknown
 install_docker(){
@@ -81,7 +81,7 @@ setup_compose() {
     # Update version string in the docker-compose yaml
     cd $REDASH_BASE_PATH
     REDASH_BRANCH="${REDASH_BRANCH:-master}" # Default branch/version to master if not specified in REDASH_BRANCH env var
-    curl -OL https://raw.githubusercontent.com/getredash/redash/${REDASH_BRANCH}/setup/docker-compose.yml
+    curl -OL https://github.com/getredash/setup/raw/${REDASH_BRANCH}/data/docker-compose.yml
     sed -ri "s/image: redash\/redash:([A-Za-z0-9.-]*)/image: redash\/redash:$LATEST_VERSION/" docker-compose.yml
     echo "export COMPOSE_PROJECT_NAME=redash" >> ~/.profile
     echo "export COMPOSE_PROJECT_NAME=redash" >> ~/.bashrc

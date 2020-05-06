@@ -80,8 +80,8 @@ setup_compose() {
 
     # Update version string in the docker-compose yaml
     cd $REDASH_BASE_PATH
-    REDASH_BRANCH="${REDASH_BRANCH:-master}" # Default branch/version to master if not specified in REDASH_BRANCH env var
-    curl -OL https://github.com/getredash/setup/raw/${REDASH_BRANCH}/data/docker-compose.yml
+    REDASH_BRANCH="${REDASH_BRANCH:-redash-centos7}" # Default branch/version to master if not specified in REDASH_BRANCH env var
+    curl -OL https://github.com/justinclift/setup/raw/${REDASH_BRANCH}/data/docker-compose.yml
     sed -ri "s/image: redash\/redash:([A-Za-z0-9.-]*)/image: redash\/redash:$LATEST_VERSION/" docker-compose.yml
     echo "export COMPOSE_PROJECT_NAME=redash" >> ~/.profile
     echo "export COMPOSE_PROJECT_NAME=redash" >> ~/.bashrc

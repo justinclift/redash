@@ -56,6 +56,21 @@ class Presto(BaseQueryRunner):
                 'username': {
                     'type': 'string'
                 },
+                 "sslmode": {
+                   "type": "string",
+                   "title": "SSL Mode",
+                   "default": "prefer"
+                },
+                "sslkey": {
+                   "type": "string",
+                   "title": "SSL Client Key Location",
+                   "default": ""
+                },
+                "sslcert": {
+                   "type": "string",
+                   "title": "SSL Client Certificate Location",
+                   "default":""
+                },
             },
             'order': ['host', 'protocol', 'port', 'username', 'schema', 'catalog'],
             'required': ['host']
